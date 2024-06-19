@@ -1,0 +1,1167 @@
+/*
+ *Folha de Estilos Principal do Sistema de Apoio às CADDs
+ *Versão 1.0
+ */
+
+/***********************/
+/* Escopo: Todo Site   */
+/* Bloco:	Cabeçalho    */
+/***********************/
+
+.header
+{
+	margin: 30px 0px 0px 0px;
+	padding: 30px 10px;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	background-color: #006bb3;
+}
+.header-content
+{
+	width: 90%;
+	margin:0px auto;
+}
+.titulo-sistema
+{
+	font-family: Consolas;
+	font-size: 28pt;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 3px 3px #000;
+}
+.usuario-texto
+{
+	font-family: Consolas;
+	font-size: 14pt;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 2px 2px #000;
+}
+.usuario-autenticado
+{
+	font-family: Consolas;
+	font-size: 14pt;
+	font-weight: bold;
+	color: #b3ecff;
+	text-shadow: 2px 2px #000;
+	cursor: pointer;
+}
+.logout-icon{
+	margin-left: 20px;
+}
+.logout{
+	margin-left: 5px;
+	font-family: Consolas;
+	font-size: 14pt;
+	color: #fff;
+	text-shadow: 2px 2px #000;
+}
+
+/******************************/
+/* Escopo: Todo Site          */
+/* Bloco:	Menu de Navegação   */
+/******************************/
+
+.navbar
+{
+	width: 100%;
+	margin: 1px auto;
+}
+.navbar-content
+{
+	width: 90%;
+	margin: 0px auto;
+	padding-right: 100px;
+}
+
+/*******************************/
+/* Escopo: Todo Site           */
+/* Bloco:	Conteúdo Principal   */
+/*******************************/
+
+.titulo-pagina
+{
+	font-family: Consolas;
+	font-weight: 300;
+	font-size: 18pt;
+	text-decoration: none;
+	margin: 5px 5px 20px 22px;
+	color: #006bb3;
+	text-shadow: 1px 1px #99b3e6;
+}
+html, body
+{
+	height:100%;
+}
+.main-content
+{
+	width: 90%;
+	margin: 0px auto;
+	min-height:100%;
+  position:relative;
+}
+
+/*BOTÕES*/
+
+.botao-padrao
+{
+	font-family: Consolas;
+	width: auto;
+	height: 38px;
+	border: none;
+	margin: 0px 5px 10px 0px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	box-shadow: 2px 2px #000;
+}
+.botao-azul
+{
+	background-color: #006bb3;
+	color: #fff;
+	font-weight: bold;
+}
+.botao-azul:hover
+{
+	background-color: #006bc9;
+	color: #fff;
+	box-shadow: 1px 1px #000;
+	cursor: pointer;
+}
+.botao-verde
+{
+	background-color: #00b33c;
+	color: #fff;
+	font-weight: bold;
+}
+.botao-verde:hover
+{
+	background-color: #00b66c;
+	color: #fff;
+	box-shadow: 1px 1px #00b33c;
+	cursor: pointer;
+}
+.botao-cinza
+{
+	background-color: #666;
+	color: #fff;
+}
+.botao-vermelho
+{
+	background-color: #e62e00;
+	color: #fff;
+	font-weight: bold;
+}
+.botao-vermelho:hover
+{
+	background-color: #c62e00;
+	color: #fff;
+	box-shadow: 1px 1px #00b33c;
+	cursor: pointer;
+}
+.botao-vermelho
+{
+	background-color: #f33;
+	color: #fff;
+}
+.botao-desabilitado
+{
+	background-color: #ccc;
+	color: #666;
+	border: 1px solid #666;
+}
+
+/* Texto de Status do Plano de Estudos*/
+
+.status_plano_titulo
+{
+	font-weight: bold;
+	margin: 5px;
+}
+.status_plano_nao_cadastrado
+{
+	color: #f00;
+}
+.status_plano_cadastrado
+{
+	color: #0f0;
+}
+
+/*******************************/
+/* Escopo: Todo Site           */
+/* Bloco:	Rodapé               */
+/*******************************/
+
+footer
+{
+	position:relative;
+    bottom:0;
+    width:100%;
+	margin: 10px 0px;
+	padding: 10px;
+	background-color: #3366ff;
+}
+footer p
+{
+	font-family: Consolas;
+	font-size: 12pt;
+	font-weight: none;
+	color: #fff;
+	text-shadow: 1px 1px #000;
+}
+
+/*******************************/
+/* Escopo: Página de Login     */
+/* Bloco:	Conteúdo Principal   */
+/*******************************/
+
+.titulo-sistema-login
+{
+	font-family: Consolas;
+	font-size: 28pt;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 3px 3px #000;
+	margin: 0px auto;
+	width: 45%;
+	min-width: 40%;
+	max-width: 50%;
+}
+.form-login-div
+{
+	width: 450px;
+	margin: 100px auto;
+	padding: 0px auto;
+	font-weight: bold;
+}
+
+/********************************************/
+/* Escopo: Página Inicial do Administrador  */
+/* Bloco:	Conteúdo Principal                */
+/********************************************/
+
+.background-div
+{
+	width: 450px;
+	margin: 0px auto;
+	padding: 0px auto;
+}
+.background-image
+{
+	opacity:0.40;
+	-moz-opacity: 0.40;
+	filter: alpha(opacity=40);
+	-webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   pointer-events: none;
+}
+
+/**********************************************/
+/* Escopo: Página de Gerenciamento das CADDs  */
+/* Bloco:	Menu Vertical Esquerdo              */
+/**********************************************/
+
+.menu-vertical-esquerda
+{
+	padding: 20px 40px;
+	/*border: 1px solid #000;*/
+}
+.total-cadds-label
+{
+	font-family: Consolas;
+	font-size: 18px;
+	font-weight: bolder;
+	margin: 20px 0px 0px 10px;
+}
+.total-cadds-value
+{
+	color: #006bb3;
+	font-family: Consolas;
+	font-size: 20px;
+	font-weight: bolder;
+	margin: 20px 0px 0px 10px;
+}
+
+/**********************************************/
+/* Escopo: Página de Gerenciamento das CADDs  */
+/* Bloco:	Menu Central - CADDs                */
+/**********************************************/
+
+.bloco-central
+{
+	margin: 0px;
+	padding: 0px;
+	display: ;
+}
+.bloco-central-cabecalho
+{
+	background-color: #006bb3;
+	color: #fff;
+	font-family: Consolas;
+	font-weight: bold;
+	margin: 0px;
+	padding: 10px 30px;
+	border: 1px solid #000;
+}
+.bloco-central-lista
+{
+	margin: 0px;
+	padding: 0px;
+	height: 450px;
+	border: 1px solid #000;
+	overflow-y: auto;
+}
+.comissao
+{
+	background-color: #eee;
+	margin: 5px 30px;
+	padding: 10px;
+	border: 1px solid #000;
+}
+.id-comissao
+{
+	display: none;
+}
+.nome-comissao-label
+{
+	font-size: 13pt;
+	font-family: Consolas;
+	font-weight: bold;
+}
+.nome-comissao
+{
+	font-family: Consolas;
+	font-weight: none;
+}
+.descricao-comissao-label
+{
+	font-size: 13pt;
+	font-family: Consolas;
+	font-weight: bold;
+}
+.descricao-comissao
+{
+	font-family: Consolas;
+	font-weight: none;
+}
+.responsavel-comissao-label
+{
+	font-size: 13pt;
+	font-family: Consolas;
+	font-weight: bold;
+}
+.responsavel-comissao
+{
+	font-family: Consolas;
+	font-weight: none;
+}
+.modal-title
+{
+	font-family: Consolas;
+	font-size: 18pt;
+	font-weight: bold;
+}
+.label-nome-cadd-criada
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.label-nome-cadd
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.nome-cadd-criada
+{
+	width: 600px;
+	height: 35px;
+	border-radius: 8px;
+	border:1px solid #ccc;
+}
+.nome-cadd
+{
+	width: 600px;
+	height: 35px;
+	border-radius: 8px;
+	border:1px solid #ccc;
+}
+.label-descricao-cadd-criada
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.label-descricao-cadd
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.descricao-cadd-criada
+{
+	width: 600px;
+	height: 150px;
+	border-radius: 8px;
+	border:1px solid #ccc;
+}
+.descricao-cadd
+{
+	width: 600px;
+	height: 150px;
+	border-radius: 8px;
+	border:1px solid #ccc;
+}
+.titulo-membros-cadd
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.linha-membro-cadd
+{
+	border: 1px solid #ccc;
+}
+.linha-membro-cadd-header
+{
+	border: 1px solid #ccc;
+	font-weight: bold;
+	color: #006bb3;
+}
+.label-nome-membro-edit
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.nome-membro-edit
+{
+	width: 400px;
+	height: 35px;
+	border-radius: 8px;
+	border:1px solid #ccc;
+	padding: 0px 10px;
+}
+.label-portaria-edit
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.portaria-edit
+{
+	width: 200px;
+	height: 35px;
+	border-radius: 8px;
+	border:1px solid #ccc;
+	padding: 0px 10px;
+}
+.label-presidente-edit
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.presidente-edit
+{
+	margin: 10px 10px;
+}
+.label-ativo-edit
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.ativo-edit
+{
+	margin: 10px 10px;
+}
+
+/**********************************************/
+/* Escopo: Página de Gerenciamento das CADDs 	*/
+/* Bloco:	Menu Vertical Direito             	*/
+/**********************************************/
+
+.menu-vertical-direita
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+/**********************************************/
+/* Escopo: Página de Gerenciamento das CADDs  */
+/* Bloco:	Menu Vertical Esquerdo              */
+/**********************************************/
+
+.menu-vertical-esquerda
+{
+	padding: 20px 40px;
+	/*border: 1px solid #000;*/
+}
+.total-reunioes-label
+{
+	font-family: Consolas;
+	font-size: 18px;
+	font-weight: bolder;
+	margin: 20px 0px 0px 10px;
+}
+.total-reunioes-value
+{
+	color: #006bb3;
+	font-family: Consolas;
+	font-size: 20px;
+	font-weight: bolder;
+	margin: 20px 0px 0px 10px;
+}
+
+/*************************************************/
+/* Escopo: Página de Gerenciamento das Reuniões  */
+/* Bloco:	Menu Central - CADDs                   */
+/*************************************************/
+
+.reuniao
+{
+	background-color: #eee;
+	margin: 5px 30px;
+	padding: 10px;
+	border: 1px solid #000;
+}
+.id-reunioes
+{
+	display: none;
+}
+.data-reunioes-label
+{
+	font-size: 13pt;
+	font-family: Consolas;
+	font-weight: bold;
+}
+.data-reunioes
+{
+	font-family: Consolas;
+	font-weight: none;
+}
+.hora-reunioes-label
+{
+	font-size: 13pt;
+	font-family: Consolas;
+	font-weight: bold;
+}
+.hora-reunioes
+{
+	font-family: Consolas;
+	font-weight: none;
+}
+.label-data-reuniao
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.data-reuniao
+{
+	border-radius: 8px;
+	border:1px solid #ccc;
+}
+.label-hora-reuniao
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.hora-reuniao
+{
+	border-radius: 8px;
+	border:1px solid #ccc;
+}
+.titulo-alunos-convocados
+{
+	margin-top: 20px;
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+}
+
+/****************************************************************/
+/************************** QUADROS *****************************/
+/****************************************************************/
+
+.cabecalho-disciplinas
+{
+	background-color: #283e3e;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12pt;
+	margin: 0px 5px;
+	padding: 10px 17%;
+}
+.cabecalho-quadros
+{
+	background-color: #283e3e;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12pt;
+	margin: 0px 0px;
+	padding: 10px 17%;
+}
+.quadro li
+{
+	list-style: none;
+}
+.quadro-disciplinas
+{
+	border: 1px solid #ccc;
+	background-color:;
+	color: #000;
+	font-weight: bold;
+	margin: 0px 5px;
+	padding: 5px;
+}
+.tipo_disciplina
+{
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: bold;
+	font-size: 10pt;
+	margin: 0px auto 10px;
+	color: #00F;
+}
+.receptor-disciplina
+{
+	font-weight: bold;
+	color: #062;
+	height: 30px;
+	background-color: #9fb;
+	border: 1px dotted #000;
+	padding: 5px;
+	margin: 3px 30px 1px 0px;
+	font-size: 10pt;
+	text-align: center;
+	border-radius: 5px;
+}
+.item_disc_periodo
+{
+	background-color:#ebf0fa;
+	padding: 0px 20px;
+	margin: 3px 30px 0px 0px;
+}
+.item_disc_periodo_concluido
+{
+	border: 1px dotted #ccc;
+	color: #ccc;
+}
+.item_disc_periodo_pendencia
+{
+	border: 1px dotted #000;
+	color: #000;
+}
+.item_disc_disciplinas
+{
+	padding: 0px 5px;
+	margin:3px 30px 0px 0px;
+	font-size: 10pt;
+	text-align: center;
+}
+.item_disc_disciplinas_faixa_preta
+{
+	background-color:#555;
+	color: #fff;
+	border: 1px dotted #000;
+}
+.item_disc_disciplinas_faixa_vermelha
+{
+	background-color:#f99;
+	color: #000;
+	border: 1px dotted #000;
+}
+.item_disc_disciplinas_faixa_laranja
+{
+	background-color:#f99;
+	color: #000;
+	border: 1px dotted #000;
+}
+.item_disc_disciplinas_faixa_azul
+{
+	background-color:#00f;
+	color: #fff;
+	border: 1px dotted #000;
+}
+.quadro
+{
+	border: 1px solid #ccc;
+	color: #000;
+}
+.col-11p
+{
+  	position: relative;
+  	width: 100%;
+  	min-height: 1px;
+  	padding-right: 0px;
+  	padding-left: 0px;
+  	-webkit-box-flex: 0;
+  	-ms-flex: 0 0 91.666667%;
+  	flex: 0 0 91.666667%;
+  	max-width: 91.666667%;
+}
+.collapseList
+{
+	padding: 0px 10px;
+	width: 100%;
+	height: 200px;
+}
+.collapseList li
+{
+	margin: 2px auto;
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+}
+
+/****************************************************************/
+/************* QUADRO DA PRÉVIA DE HORÁRIOS *********************/
+/****************************************************************/
+
+.disciplina-previa
+{
+	background-color: #000;
+	border-radius: 1px;
+	margin: 1px;
+	padding: 1px;
+}
+.disciplina-previa-detalhes
+{
+	padding: 5px 5px;
+	background-color: #FFF;
+}
+.disciplina-previa-label-codigo
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-codigo
+{
+	color: #000;
+	font-weight:normal;
+	font-size: 9pt;
+}
+.disciplina-previa-label-nome
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-nome
+{
+	font-weight: normal;
+	font-size: 9pt;
+}
+.disciplina-previa-label-professor
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-professor
+{
+	font-weight: normal;
+	font-size: 9pt;
+}
+.disciplina-previa-label-inicio
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-horario-inicio
+{
+	font-weight: normal;
+	font-size: 9pt;
+}
+.disciplina-previa-label-termino
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-horario-termino
+{
+	font-weight: normal;
+	font-size: 9pt;
+}
+.disciplina-previa-label-desc
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-desc
+{
+	font-weight: normal;
+	font-size: 9pt;
+}
+.disciplina-previa-label-creditos
+{
+	color: #0056B3;
+	font-weight:bold;
+	font-size: 9pt;
+}
+.disciplina-previa-creditos
+{
+	font-weight: normal;
+	font-size: 9pt;
+}
+/*.card-body .disciplina-previa
+{
+	display: none;
+} */
+.detalhes-nao-exibir-quadro-previa
+{
+	display: none;
+}
+.card-body .disciplina-previa .detalhes-nao-exibir-quadro-previa
+{
+	display: none;
+}
+
+/******************/
+
+.disciplina-previa-add
+{
+	background-color: #00E676;
+	border-left: 1px solid #000;
+	cursor: pointer;
+}
+
+/************************/
+
+.disciplina-previa-codigo-tb
+{
+	color: #000;
+	font-weight: bold;
+	font-size: 11pt;
+}
+.disciplina-previa-nome-tb
+{
+	font-weight: normal;
+	font-size: 10pt;
+}
+.disciplina-previa-rem-tb
+{
+	background-color: #f00;
+	border: 1px solid #f00;
+	font-weight: normal;
+	font-size: 14px;
+	cursor: pointer;
+}
+.disciplina-previa-rem-txt-tb
+{
+	color: #fff;
+	font-weight: bold;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+/****************************************************************/
+/************************ TABELA DA PRÉVIA **********************/
+/******************* Plano com Base na Prévia *******************/
+/****************************************************************/
+
+.disciplina-previa-tabela
+{
+	background-color: #cfc;
+	margin: 1px;
+	padding: 1px;
+}
+.disciplina-previa-tabela .disciplina-previa-label-nome
+{
+	display: none;
+}
+.card-body .disciplina-previa-rem-tb
+{
+	display: none;
+}
+table tbody tr td .disciplina-previa-detalhes
+{
+	background-color: #cfc;
+	border: none;
+	-webkit-box-flex: 0;
+  	-ms-flex: 0 0 100%;
+  	flex: 0 0 100%;
+  	max-width: 100%;
+}
+table tbody tr td .disciplina-previa-add
+{
+	display: none;
+  	max-width: 100%;
+}
+table tbody tr td .disciplina-previa-rem-tb
+{
+  	-webkit-box-flex: 0;
+  	-ms-flex: 0 0 100%;
+  	flex: 0 0 100%;
+  	max-width: 100%
+}
+table tbody tr td .detalhes-nao-exibir-calendario-plano
+{
+	display: none;
+}
+
+/****************************************************************/
+/*********************** CALENDÁRIO *****************************/
+/****************************************************************/
+
+table
+{
+	font-family:Consolas;
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: separate;
+	table-layout: fixed;
+	margin-bottom: 50px;
+}
+table thead tr th
+{
+	text-align: center;
+	background-color: #CFD8DC;
+	color: #1565C0;
+	padding: 0.5em;
+	overflow: hidden;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+table thead tr th:first-child
+{
+	border-left: 1px solid #ccc;
+}
+table thead tr th:last-child
+{
+}
+table thead tr th .short
+{
+	display: block;
+}
+table tbody .hour span
+{
+	font-size: 1.0em;
+}
+table tbody tr:first-child
+{
+}
+table tbody tr td
+{
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin: 5px;
+	text-align: center;
+	font-weight: normal;
+	font-size: 12pt;
+}
+table tbody tr td:first-child
+{
+	background-color: #CFD8DC;
+	border-left: 1px solid #ccc;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12pt;
+}
+#disciplinas-sem-horario-cell{
+	border: none;
+	padding: 5px 50px;
+	height: 30px;
+	background-color: #FFF;
+	text-align: left;
+}
+#texto-disciplinas-sem-horario{
+	font-family: Consolas;
+	font-size: 11pt;
+	color: #1565C0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+#numero-disciplinas-sem-horario{
+	font-family: Consolas;
+	font-size: 11pt;
+	color: #F00;
+}
+#disciplinas-sem-horario{
+	display: none;
+}
+.disciplina-previa-sem-horario{
+	margin-bottom: 2px;
+	background-color: #cfc;
+	border: 1px solid green;
+	width: 50%;
+}
+#disciplinas-sem-horario-cell .disciplina-previa-detalhes{
+	background-color: #cfc;
+}
+.disciplina-previa-sem-horario .detalhes-completos{
+	background-color: #cfc;
+}
+#salvar-previa{
+	margin: 20px 0px;
+	padding: 0px;
+}
+#salvar-previa button{
+	font-weight: bold;
+}
+
+/******************************/
+/***********Aluno_Inicial.html*/
+/******************************/
+
+.lista-reunioes-pagina-inicial
+{
+	min-height: 300px;
+	margin: 10px 50px;
+	padding: 20px;
+	border: 1px solid #000;
+	border-radius: 50px;
+}
+.item-reuniao-cancelada
+{
+	background-color: #ff8080;
+	border: 1px dotted #000;
+	border-radius: 5px;
+	margin: 5px;
+	padding: 5px;
+}
+.item-reuniao-agendada
+{
+	background-color: #80b3ff;
+	border: 1px dotted #000;
+	border-radius: 5px;
+	margin: 5px;
+	padding: 5px;
+}
+.reunioes-titulo
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #006bb3;
+}
+.reunioes-linha
+{
+	margin-top: 10px;
+}
+.reunioes-linha-destaque
+{
+	border-bottom: 1px dashed #000;
+	font-weight: bold;
+}
+.faixa-criticidade-pagina-inicial
+{
+	min-height: 300px;
+	margin: 10px 50px;
+	padding: 20px;
+	border: 1px solid #000;
+	border-radius: 50px;
+}
+.criticidade-titulo
+{
+	margin: 100px;
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #000;
+}
+.criticidade-status
+{
+	color: #000;
+	font-family: Consolas;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+/****************************/
+/*************Comissões.html*/
+/*************Comissões-Editar.html*/
+/****************************/
+
+.tabela-lista-comissoes
+{
+	width: 85%;
+	margin: 0px auto;
+}
+.alinhamento-central
+{
+	width: 85%;
+	margin: 10px auto;
+}
+.card-body-integralizacao
+{
+	height: 100%;
+}
+#iframe-documento
+{
+	display: none;
+}
+.faixa-criticidade-iframe-avaliacao
+{
+	margin: 0px 20px 0px 0px;
+	padding: 15px;
+	border-radius: 0px;
+	border: 1px solid #000;
+	width: 80%;
+}
+.bloco-avaliacao
+{
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin: 5px 0px;
+	padding: 10px;
+}
+.titulo-avaliacao
+{
+	font-size: 14pt;
+}
+
+/******************************/
+/********* TelaInicialMembro **/
+/******************************/
+
+.lista-comissoes-pagina-inicial
+{
+	border: 1px solid #ccc;
+	margin: 0px 10px 20px;
+	padding: 10px;
+	border-radius: 5px;
+}
+.comissoes-titulo
+{
+	font-family: Consolas;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #006bb3;
+}
+#collapseOne
+{
+	position: relative;
+}
+#collapseOneList
+{
+	display: contents;
+}
+
+
+.pagina-em-desenvolvimento
+{
+	border: 1px solid #006bb3;
+	width: 400px;
+	margin: 150px auto;
+	padding: 50px;
+	border-radius: 10px;
+	color: #006bb3;
+	font-size: 14pt;
+	font-family: Consolas;
+	font-weight: bold;
+}

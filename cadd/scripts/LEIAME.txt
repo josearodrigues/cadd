@@ -1,0 +1,43 @@
+Instalação
+
++++++++++++
+
+instalar o python 2.7 (https://www.python.org/download/releases/2.7/)
+
+
+instalar os pacotes plotly, openxl e XlsWriter:
+
+% pip27 install plotly
+% pip27 install openpyxl
+% pip install XlsxWriter
+
+Geração dos relatórios
+
+++++++++++++++++++++++
+
+
+Para gerar os relatórios de suporte:
+
+ 
+0) gerar a partir do SIE (e em formato CSV) o relat—rio .60 para cada curso de graduação.
+
+ 
+1) criar pasta "resultado" no mesmo nível da pasta "src"
+2) criar pasta "data" no mesmo nível da pasta "src"
+3) copiar todos os arquivos CSV exportados do SIE para a pasta "data"
+4) cd para pasta src
+5) editar o arquivo "main.py" para definir o período letivo desejado
+
+
+6) executar o comando "python main.py"
+
+
+
+Troubleshooting
+
+++++++++++++++++
+
+https://openpyxl.readthedocs.org/en/2.5/usage.html
+
+O editor do PyDev insistia em reportar erro 'undefined variable' em objetos do plotly. Para resolver, adicionei 'plotly' em:
+Window -> Preferences -> PyDev -> Interpreters -> Python Interpreter -> Forced Builtins

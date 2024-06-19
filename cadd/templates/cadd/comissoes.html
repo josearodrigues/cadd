@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+<div class="main-content">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="titulo-pagina"><< Gerenciar Comissões >></h3>
+    </div>
+  </div>
+
+  <!-- Modal para criar Comissão -->
+  <div class="modal fade" id="criarCADD" tabindex="-1" role="dialog" aria-labelledby="criarCADDLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="criarCADDLabel">Criar Comissão</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="/cadd/nova-comissao/" id="criarCaddForm">
+            {% csrf_token %}
+            <label for="nome-cadd-criada" class="label-nome-cadd-criada">Curso: </label> <br />
+            <input type="text" name="nome" id="nome-cadd-criada" width="200" class="nome-cadd-criada"> <br />
+            {{ form.curso }}
+            <label for="descricao-cadd-criada" class="label-descricao-cadd-criada">Descrição: </label> <br />
+            <textarea class="descricao-cadd-criada"></textarea>
+            {{ form.descricao }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="botao-padrao botao-vermelho" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="botao-padrao botao-verde" onclick="submitCriarCaddForm()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Final modal para criar Comissão -->
+
+  <!-- Modal para visualizar/editar Comissão -->
+  <div class="modal fade" id="visualizarCADD" tabindex="-1" role="dialog" aria-labelledby="criarCADDLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" id="modal-content">
+        <div class="modal-header" id="modal-header">
+          <h5 class="modal-title" id="criarCADDLabel">Visualizar/Editar Comissão</h5>
+          <button type="button" class="close" id="botaocancelar" data-dismiss="modal" aria-label="Close" onclick="cancelarEdicao(event)">
+            <span aria-hidden="true" id="xcancelar">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form method="POST" action="#" id="editarComissaoForm">
+            <input type="hidden" name="id" class="id-comissao" id="id">
+            <label for="nome-cadd" class="label-nome-cadd">Nome da Comissão: </label> <br />
+            <input type="text" name="nome" id="nome-cadd" width="200" class="nome-cadd"><br />
+            <label for="descricao-cadd" class="label-descricao-cadd">Descrição: </label> <br />
+            <textarea id="descricao-cadd" class="descricao-cadd"></textarea>
+          </form>
+          <div id="MembrosCADD">
+            <span class="titulo-membros-cadd"> Membros da Comissão</span>
+            <div class="row linha-membro-cadd linha-membro-cadd-header">
+              <div class="col-3 coluna-membro-cadd"><span>Professor</span></div>
+              <div class="col-2 coluna-membro-cadd"><span>Portaria</span></div>
+              <div class="col-2 coluna-membro-cadd"><span>Presidente</span></div>
+              <div class="col-2 coluna-membro-cadd"><span>Ativo</span></div>
+              <div class="col-3 coluna-membro-cadd"><span>Ações</span></div>
+            </div>
+            <form method="POST" action="#" id="fomrTempExcluirMembro">
+              <input type="hidden" name="membroParaExcluir" id="membroParaExcluir" value="Teste Cristiano">
+            </form>
+            <div class="row linha-membro-cadd" id="membro-01">
+              <div class="col-3 coluna-membro-cadd"><span class="nome-membro">CARMEN LUCIA ASP DE QUEIROZ</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="portaria">254/CEFET/2016</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="presidente">Sim</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="ativo">Sim</span></div>
+              <div class="col-3 coluna-membro-cadd">
+                <button class="botao-padrao botao-azul" data-toggle="modal" data-target="#editarMembro" onclick="editarMembro(event)">Editar</button>
+                <button class="botao-padrao botao-vermelho" onclick="submitExcluirMembroForm(event)">Excluir</button>
+              </div>
+            </div>
+            <div class="row linha-membro-cadd" id="membro-02">
+              <div class="col-3 coluna-membro-cadd"><span class="nome-membro">KELLE TEIXEIRA BELLOZZI</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="portaria">254/CEFET/2016</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="presidente">Não</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="ativo">Sim</span></div>
+              <div class="col-3 coluna-membro-cadd">
+                <button class="botao-padrao botao-azul" data-toggle="modal" data-target="#editarMembro" onclick="editarMembro(event)">Editar</button>
+                <button class="botao-padrao botao-vermelho" onclick="submitExcluirMembroForm(event)">Excluir</button>
+              </div>
+            </div>
+            <div class="row linha-membro-cadd" id="membro-03">
+              <div class="col-3 coluna-membro-cadd"><span class="nome-membro">FABIO PASCHOAL JUNIOR</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="portaria">254/CEFET/2016</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="presidente">Não</span></div>
+              <div class="col-2 coluna-membro-cadd"><span class="ativo">Sim</span></div>
+              <div class="col-3 coluna-membro-cadd">
+                <button class="botao-padrao botao-azul" data-toggle="modal" data-target="#editarMembro" onclick="editarMembro(event)">Editar</button>
+                <button class="botao-padrao botao-vermelho" onclick="submitExcluirMembroForm(event)">Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="botao-padrao botao-azul" onclick="editarCADD(event)">Editar</button>
+          <button type="button" class="botao-padrao botao-cinza" onclick="submitEditarComissaoForm()" disabled>Salvar</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <!-- Final modal para visualizar/editar Comissão -->
+
+  <!-- Modal para editar Membros -->
+  <div class="modal fade" id="editarMembro" tabindex="-1" role="dialog" aria-labelledby="editarMembroLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" id="modal-content">
+        <div class="modal-header" id="modal-header">
+          <h5 class="modal-title" id="editarMembroLabel">Editar Membro</h5>
+          <button type="button" class="close" id="botaocancelar" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true" id="xcancelar">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="#" id="editarMembroForm">
+            <input type="hidden" name="id-membro-edit" class="id-membro-edit" id="id-membro-edit">
+            <label for="nome-membro-edit" class="label-nome-membro-edit">Nome: </label>
+            <input type="text" name="nome-membro-edit" id="nome-membro-edit" class="nome-membro-edit"><br />
+            <label for="portaria-edit" class="label-portaria-edit">Portaria: </label>
+            <input type="text" name="portaria-edit" id="portaria-edit" class="portaria-edit"><br />
+            <label for="presidente-edit" class="label-presidente-edit">Presidente: </label> <input type="checkbox" class="presidente-edit" id="presidente-edit"> <br />
+            <label for="ativo-edit" class="label-ativo-edit">Ativo: </label> <input type="checkbox" class="ativo-edit" id="ativo-edit"> <br />
+            <button type="button" class="botao-padrao botao-vermelho" data-dismiss="modal" aria-label="Close">Cancelar</button>
+            <button type="button" class="botao-padrao botao-verde" onclick="submitEditarMembrosForm()">Salvar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Final modal para para editar Membros -->
+
+  <!-- Modal para excluir Comissão-->
+  <div class="modal fade" id="excluirCADD" tabindex="-1" role="dialog" aria-labelledby="excluirCADDTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="excluirCADDTitle">Confirma a Exclusão?</h5>
+        </div>
+        <div class="modal-body">
+          <button type="button" class="botao-padrao" data-dismiss="modal" aria-label="Close">
+            <span>Não</span>
+            <button type="button" class="botao-padrao botao-vermelho" onclick="submitExcluirComissaoForm()">Sim</button>
+          </button>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Final modal para excluir Comissão-->
+
+  <div class="row">
+    {% if messages %}
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="col-3 menu-vertical-esquerda">
+      <button type="button" class="botao-padrao botao-azul" data-toggle="modal" data-target="#criarCADD">CRIAR COMISSÃO</button><br>
+      <span class="total-cadds-label">TOTAL DE COMISSÕES: </span>
+      <span class="total-cadds-value" id="total-cadds-value"></span>
+    </div>
+    <div class="col-6 bloco-central">
+      <div class="row">
+        <div class="col-12 bloco-central-cabecalho">
+          <span>LISTA DE COMISSÕES</span>
+        </div>
+      </div>
+      <form method="POST" action="#" id="fomrTempExcluirComissao">
+        <input type="hidden" name="comissaoParaExcluir" id="comissaoParaExcluir">
+      </form>
+      <div class="row">
+        <div class="col-12 bloco-central-lista" id="bloco-central-lista">
+          {% if comissoes %}
+          {% for c in comissoes %}
+          <div class="row comissao" id="{{ c.id }}">
+            <div class="col-8">
+              <span class="id-comissao">{{ c.id }}</span>
+              <span class="nome-comissao-label">Curso:</span><br/><span class="nome-comissao">{{ c.curso }}</span><br/>
+              <span class="descricao-comissao-label">Descrição:</span><br/><span class="descricao-comissao">{{ c.descricao }}</span><br/>
+              <span class="responsavel-comissao-label">Responsável:</span><br/><span class="responsavel-comissao"> Professor 01</span><br/>
+            </div>
+            <div class="col-4">
+              <button class="botao-padrao botao-azul" data-toggle="modal" data-target="#visualizarCADD" onclick="visualizarCADD(event)"> Visualizar/Editar </button>
+              <button class="botao-padrao botao-vermelho" onclick="submitExcluirComissaoForm(event)">Excluir CADD</button>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-3" class="menu-vertical-direita" ">
+      <div class="row">
+        <div class="col-11">
+        </div>
+      </div>
+      <div class="row">
+      </div>
+    </div>
+  </div>
+{% endblock body %}

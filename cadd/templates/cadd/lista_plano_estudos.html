@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+<div class="main-content">
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Plano de Estudos &gt;&gt;</span>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <button type="button" class="botao-padrao botao-{% if planoAtual %}desabilitado{% else %}azul{% endif %}" style="width: 170px;" onclick="window.location.href='{% if planoAtual %}#{% else %}{% url 'cadd:novo_plano_previa' %}{% endif %}'">Cadastrar Plano</button><br>
+      <button type="button" class="botao-padrao botao-{% if planoAtual %}azul{% else %}desabilitado{% endif %}" style="width: 170px;" onclick="window.location.href='{% if planoAtual %}{% url 'cadd:novo_plano_previa' %}{% else %}#{% endif %}'">Editar Plano</button><br>
+<!--      <button type="button" class="botao-padrao botao-azul" onclick="window.location.href='{% url 'cadd:novo_plano_previa' %}'">Cadastrar Prévia</button><br>
+      <button type="button" class="botao-padrao botao-azul" onclick="window.location.href='{% url 'cadd:novo_plano_futuro' %}'">Cadastrar Futuro</button><br>  -->
+      <span class="status_plano_titulo">Status:</span>
+      <span class="status_plano_{% if planoAtual %}{% else %}nao_{% endif %}cadastrado">{% if planoAtual %}{{ planoAtual.get_situacao_display }}{% else %}Não Cadastrado{% endif %}</span><br><br>
+      <button type="button" class="botao-padrao botao-desabilitado" style="width: 170px;">Download PDF</button><br>
+      <button type="button" class="botao-padrao botao-desabilitado" style="width: 170px;">Enviar por E-mail</button><br>
+      <button type="button" class="botao-padrao botao-desabilitado" style="width: 170px;">Imprimir</button><br>
+    </div>
+    <div class="col-5">
+      {% if planoAtual %}
+      <div class="row">
+        <div class="col-11 cabecalho-quadros">
+          <span>Plano de Estudos Cadastrado</span>
+        </div>
+      </div>
+      <div class="row">
+        <div id="accordion" class="col-11p quadro-periodos quadro">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <span class="card-header-text"> {{ planoAtual.ano }}.{{ planoAtual.periodo }} </span>
+                </button>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <ul id="collapseOneList" class="collapseList">
+                  {% for i in itensAtual %}
+                  <li id="{{ i.itemhorario.disciplina.codigo }}" class="item_disc_disciplinas item_disc_disciplinas_faixa_vermelha">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">{% filter force_escape|upper %}{{ i.itemhorario.disciplina.nome }}{% endfilter %} ({{ i.itemhorario.disciplina.codigo }})</span><br />
+                      {% if i.itemhorario.diasemana == 7 or i.itemhorario.diasemana == 8 %}
+                      <span class="disciplina-previa-nome">{{ i.itemhorario.get_diasemana_display }}</span><br />
+                      {% else %}
+                      <span class="disciplina-previa-nome">{{ i.itemhorario.get_diasemana_display }},</span>
+                      <span class="disciplina-previa-nome">{{ i.itemhorario.inicio }}h</span> às
+                      <span class="disciplina-previa-nome">{{ i.itemhorario.fim }}h</span>
+                      {% endif %}
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% if planosFuturos %}
+          {% for a in planosFuturos %}
+          <div class="card">
+            <div class="card-header" id="heading{{ a.ano }}{{ a.periodo }}">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse{{ a.ano }}{{ a.periodo }}" aria-expanded="false" aria-controls="collapse{{ a.ano }}{{ a.periodo }}">
+                  <span class="card-header-text"> {{ a.ano }}.{{ a.periodo }} </span>
+                </button>
+              </h5>
+            </div>
+            <div id="collapse{{ a.ano }}{{ a.periodo }}" class="collapse" aria-labelledby="heading{{ a.ano }}{{ a.periodo }}" data-parent="#accordion">
+              <div class="card-body">
+                <ul id="collapse{{ a.ano }}{{ a.periodo }}List" class="collapseList">
+                  {% for j in itensFuturos %}
+                  {% if j.planofuturo == a %}
+                  <li id="{{ j.disciplina.codigo }}" class="item_disc_disciplinas item_disc_disciplinas_faixa_vermelha">
+                    ({{ j.disciplina.codigo }}) {{ j.disciplina.nome }}
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      {% else %}
+      <div class="row">
+        <div class="col-11 cabecalho-quadros">
+          <span>Não há nenhum Plano de Estudos Cadastrado</span>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% if avaliacao %}
+    <div class="col-4">
+      <div class="bloco-avaliacao" >
+        <span class="titulo-pagina titulo-avaliacao"> Avaliação da Comissão</span>
+        <hr>
+        <div class="form-group">
+          <span>{{ avaliacao }}</span>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Horário &gt;&gt;</span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <form class="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.ano.id_for_label }}">Ano</label>
+      {{ form.ano }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.periodo.id_for_label }}">Período</label>
+      {{ form.periodo }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.curso.id_for_label }}">Curso</label>
+      {{ form.curso }}
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_horarios' %}" class="btn botao-padrao">Voltar</a>
+    <button type="submit" class="btn botao-padrao botao-verde">Salvar</button>
+  </div>
+  </form>
+{% endblock body %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Item de Horário &gt;&gt;</span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <form class="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.periodo.id_for_label }}">Período</label>
+      {{ form.periodo|attr:"autofocus" }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.turma.id_for_label }}">Turma</label>
+      {{ form.turma }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.disciplina.id_for_label }}">Disciplina</label>
+      {{ form.disciplina }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.professor.id_for_label }}">Professor</label>
+      {{ form.professor }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.diasemana.id_for_label }}">Dia da semana</label>
+      {{ form.diasemana }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.inicio.id_for_label }}">Início</label>
+      {{ form.inicio }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.fim.id_for_label }}">Fim</label>
+      {{ form.fim }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.departamento.id_for_label }}">Departamento</label>
+      {{ form.departamento }}
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_itenshorario' id_horario %}" class="btn botao-padrao">Voltar</a>
+    <button type="submit" class="btn botao-padrao botao-verde">Salvar</button>
+  </div>
+  </form>
+{% endblock body %}

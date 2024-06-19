@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina"><< Meu perfil >></span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <div class="col-5">
+      <h1 class="h4 mb-2 font-weight-bold">Alterar a senha</h1>
+      <form class="" method="post">
+      {% csrf_token %}
+      <div class="form-group ls-login-user">
+        <label for="old_password">Senha antiga</label>
+        <input class="form-control ls-login-bg-user input-lg" id="old_password" name="old_password" type="password" placeholder="Informe a senha antiga" required autofocus>
+      </div>
+      <div class="form-group ls-login-password">
+        <label for="new_password1">Nova senha</label>
+        <input class="form-control ls-login-bg-password input-lg" id="new_password1" name="new_password1" type="password" placeholder="Informe a nova senha" required>
+      </div>
+      <div class="form-group ls-login-password">
+        <label for="new_password2">Confirmar nova senha</label>
+        <input class="form-control ls-login-bg-password input-lg" id="new_password2" name="new_password2" type="password" placeholder="Confirme a nova senha" required>
+      </div>
+      <div class="row alinhamento-central">
+        <input type="submit" value="Alterar Senha" class="btn botao-padrao botao-azul">
+      </div>
+      </form>
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-5">
+      <h1 class="h4 mb-2 font-weight-bold">Outros</h1>
+      <form class="" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="itenspagina">Total de itens por página das listagens</label>
+        {{ form2.itenspagina }}
+      </div>
+      <div class="row alinhamento-central">
+        <input type="submit" value="Salvar" class="btn botao-padrao botao-azul">
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <ul>
+      <li>Não se utilize de senha parecida com suas informações pessoais e
+          nem tampouco uma senha habitualmente utilizada.</li>
+      <li>Precisa conter pelo menos 8 caracteres, uma letra maiúscula e um número na senha.</li>
+      <li>No campo total de itens por página, esse valor é utilizado quando da listagem de itens do sistema.</li>
+    </ul>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'home' %}" class="btn botao-padrao">Voltar</a>
+  </div>
+{% endblock body %}

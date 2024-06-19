@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Lista de Documentos &gt;&gt;</span>
+  </div>
+  {# Caso haja mensagens, as exibe #}
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {# Loop para a exibição de todas as mensagens #}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {# Caso haja pelo menos um documento cadastrado #}
+  {% if documentos %}
+  {% if copiabotoes %}
+  <div class="row">
+    <div class="col-7">
+      <div class="row alinhamento-central">
+        <a href="{% url 'home' %}" class="btn botao-padrao">Voltar</a>
+        <a href="{% url 'cadd:novo_documento' %}" class="btn botao-padrao botao-azul" role="button">Adicionar documento</a>
+      </div>
+      <div class="row alinhamento-central">
+        <div class="pagination">
+          <span class="step-links">
+            {# Caso haja mais de uma página de resultados, habilita os botões conforme o necessário #}
+            {% if documentos.has_previous %}
+            <a href="?page=1" class="btn btn-info botao-padrao">Primeiro</a>
+            <a href="?page={{ documentos.previous_page_number }}" class="btn btn-info botao-padrao">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+              Página {{ documentos.number }} de {{ documentos.paginator.num_pages }}
+            </span>
+
+            {# Caso haja mais de uma página de resultados, habilita os botões (idem acima) #}
+            {% if documentos.has_next %}
+            <a href="?page={{ documentos.next_page_number }}" class="btn btn-info botao-padrao">Próximo</a>
+            <a href="?page={{ documentos.paginator.num_pages }}" class="btn btn-info botao-padrao">Último</a>
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-7">
+      <div class="row alinhamento-central">
+        <div class="form-group">
+          <table class="table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th colspan="2">Aluno</th>
+                <th>Período</th>
+                <th>Descrição</th>
+                <th colspan="2" style="textalign:center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {# Loop para a exibição de todos os documentos anexados #}
+              {% for d in documentos %}
+              <tr>
+                <td colspan="2">{{ d.aluno }}</td>
+                <td>{{ d.ano }}.{{ d.periodo }}</td>
+                <td>{{ d.descricao }}</td>
+                <td colspan="2">
+                  <a href="/media/{{ d.indice }}" target="interno" class="btn btn-info botao-padrao" onclick="mostrarIframe()">Exibir</a>
+                  <button type="button" class="btn botao-padrao botao-vermelho" data-toggle="modal" data-target="#excluirModal" onclick="preencherModal('{% url 'cadd:excluir_documento' d.id %}')">Excluir</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="pagination">
+            <span class="step-links">
+              {# Caso haja mais de uma página de resultados, habilita os botões conforme o necessário #}
+            	{% if documentos.has_previous %}
+            	<a href="?page=1" class="btn btn-info botao-padrao">Primeiro</a>
+            	<a href="?page={{ documentos.previous_page_number }}" class="btn btn-info botao-padrao">Anterior</a>
+            	{% endif %}
+
+            	<span class="current">
+            	  Página {{ documentos.number }} de {{ documentos.paginator.num_pages }}
+            	</span>
+
+              {# Caso haja mais de uma página de resultados, habilita os botões (idem acima) #}
+            	{% if documentos.has_next %}
+            	<a href="?page={{ documentos.next_page_number }}" class="btn btn-info botao-padrao">Próximo</a>
+            	<a href="?page={{ documentos.paginator.num_pages }}" class="btn btn-info botao-padrao">Último</a>
+            	{% endif %}
+            </span>
+          </div>
+        </div>
+        <a href="{% url 'home' %}" class="btn botao-padrao">Voltar</a>
+        <a href="{% url 'cadd:novo_documento' %}" class="btn botao-padrao botao-azul" role="button">Adicionar documento</a>
+      </div>
+    </div>
+    {# A visualização dos documentos se dá neste iframe #}
+    <div class="col-5">
+      <div id ="iframe-documento">
+        <iframe name="interno" width="520" height="800" frameborder="1"></iframe>
+      </div>
+    </div>
+  </div>
+  {# Caso não haja nenhum documento cadastrado, exibe mensagem #}
+  {% else %}
+  <div class="row alinhamento-central">
+    <div class="form-group">
+      <div class="alert alert-danger" role="alert">
+        <p>Não há nenhum documento cadastrado!</p>
+      </div>
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'home' %}" class="btn botao-padrao">Voltar</a>
+    <a href="{% url 'cadd:novo_documento' %}" class="btn botao-padrao botao-azul" role="button">Adicionar documento</a>
+  </div>
+  {% endif %}
+
+  <!-- Modal -->
+  <div class="modal fade" id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluir" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="excluir">Confirmar Exclusão</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Você tem certeza que deseja excluir este documento?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn botao-padrao botao-azul" data-dismiss="modal">Cancelar</button>
+          <a id="link-modal" class="btn botao-padrao botao-vermelho">Sim</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Final Modal -->
+{% endblock body %}

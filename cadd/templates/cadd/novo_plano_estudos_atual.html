@@ -1,0 +1,483 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+<div class="main-content">
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Plano de Estudos para o próximo semestre &gt;&gt;</span>
+  </div>
+<!--  <b>A Lecionar: </b>{{ podeLecionarnoPeriodo }}<br> -->
+  <div class="row">
+    <div class="col-4">
+      <div class="row">
+        <div class="col-11 cabecalho-quadros">
+          <span>Prévia de Horários {{ proxperiodo }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div id="accordion" class="col-11p">
+          <!-- SEGUNDA-FEIRA -->
+          <div class="card">
+            <div class="card-header" id="headingSegundaFeira">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#segcard" aria-expanded="true" aria-controls="segcard">
+                <span class="card-header-text"> Segunda-Feira </span>
+              </button>
+            </div>
+            <div id="segcard" class="collapse show" aria-labelledby="headingSegundaFeira" data-parent="#accordion">
+              <div class="card-body" id="seg">
+                {% for d in podeLecionar %}
+                {% if d.diasemana == 1 %}
+                <div class="row disciplina-previa" id="{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}">
+                  <div class="col-10 disciplina-previa-detalhes">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">Disciplina: </span>
+                      <span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ d.disciplina.nome }}{% endfilter %}</span><br />
+                      <span class="disciplina-previa-label-codigo">Código: </span>
+                      <span class="disciplina-previa-codigo">{{ d.disciplina.codigo }}</span><br />
+                      <div class="detalhes-nao-exibir-calendario-plano">
+                        <span class="disciplina-previa-label-professor">Prof: </span>
+                        <span class="disciplina-previa-professor">{% filter force_escape|upper %}{{ d.professor.nome }}{% endfilter %}</span><br />
+                        <span class="disciplina-previa-label-inicio">Horário: </span>
+                        <span class="disciplina-previa-horario-inicio">{{ d.inicio }}</span>
+                        <span class="disciplina-previa-label-termino"> às </span>
+                        <span class="disciplina-previa-horario-termino">{{ d.fim }}</span>
+                        <div class="detalhes-nao-exibir-quadro-previa">
+                          <span class="disciplina-previa-label-desc">Descrição: </span>
+                          <span class="disciplina-previa-desc">{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}</span>
+                          <span class="disciplina-previa-label-creditos">Créditos: </span>
+                          <span class="disciplina-previa-creditos">{{ d.disciplina.quantidadecreditos }}</span>
+                          <span class="disciplina-previa-id">{{ d.id }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 disciplina-previa-add" onclick="addDisciplina(event)">
+                  </div>
+                  <!-- <div class="disciplina-previa-rem-tb" onclick="removeDisciplina(event)">
+                    <span class="disciplina-previa-rem-txt-tb">Remover</span>
+                  </div> -->
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!-- TERÇA-FEIRA -->
+          <div class="card">
+            <div class="card-header" id="headingTercaFeira">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#tercard" aria-expanded="true" aria-controls="tercard">
+                <span class="card-header-text"> Terça-Feira </span>
+              </button>
+            </div>
+            <div id="tercard" class="collapse" aria-labelledby="headingTercaFeira" data-parent="#accordion">
+              <div class="card-body" id="ter">
+                {% for d in podeLecionar %}
+                {% if d.diasemana == 2 %}
+                <div class="row disciplina-previa" id="{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}">
+                  <div class="col-10 disciplina-previa-detalhes">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">Disciplina: </span>
+                      <span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ d.disciplina.nome }}{% endfilter %}</span><br />
+                      <span class="disciplina-previa-label-codigo">Código: </span>
+                      <span class="disciplina-previa-codigo">{{ d.disciplina.codigo }}</span><br />
+                      <div class="detalhes-nao-exibir-calendario-plano">
+                        <span class="disciplina-previa-label-professor">Prof: </span>
+                        <span class="disciplina-previa-professor">{% filter force_escape|upper %}{{ d.professor.nome }}{% endfilter %}</span><br />
+                        <span class="disciplina-previa-label-inicio">Horário: </span>
+                        <span class="disciplina-previa-horario-inicio">{{ d.inicio }}</span>
+                        <span class="disciplina-previa-label-termino"> às </span>
+                        <span class="disciplina-previa-horario-termino">{{ d.fim }}</span>
+                        <div class="detalhes-nao-exibir-quadro-previa">
+                          <span class="disciplina-previa-label-desc">Descrição: </span>
+                          <span class="disciplina-previa-desc">{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}</span>
+                          <span class="disciplina-previa-label-creditos">Créditos: </span>
+                          <span class="disciplina-previa-creditos">{{ d.disciplina.quantidadecreditos }}</span>
+                          <span class="disciplina-previa-id">{{ d.id }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 disciplina-previa-add" onclick="addDisciplina(event)">
+                  </div>
+                  <!-- <div class="disciplina-previa-rem-tb" onclick="removeDisciplina(event)">
+                    <span class="disciplina-previa-rem-txt-tb">Remover</span>
+                  </div> -->
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!-- QUARTA-FEIRA -->
+          <div class="card">
+            <div class="card-header" id="headingQuartaFeira">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#quacard" aria-expanded="true" aria-controls="quacard">
+                <span class="card-header-text"> Quarta-Feira </span>
+              </button>
+            </div>
+            <div id="quacard" class="collapse" aria-labelledby="headingQuartaFeira" data-parent="#accordion">
+              <div class="card-body" id="qua">
+                {% for d in podeLecionar %}
+                {% if d.diasemana == 3 %}
+                <div class="row disciplina-previa" id="{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}">
+                  <div class="col-10 disciplina-previa-detalhes">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">Disciplina: </span>
+                      <span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ d.disciplina.nome }}{% endfilter %}</span><br />
+                      <span class="disciplina-previa-label-codigo">Código: </span>
+                      <span class="disciplina-previa-codigo">{{ d.disciplina.codigo }}</span><br />
+                      <div class="detalhes-nao-exibir-calendario-plano">
+                        <span class="disciplina-previa-label-professor">Prof: </span>
+                        <span class="disciplina-previa-professor">{% filter force_escape|upper %}{{ d.professor.nome }}{% endfilter %}</span><br />
+                        <span class="disciplina-previa-label-inicio">Horário: </span>
+                        <span class="disciplina-previa-horario-inicio">{{ d.inicio }}</span>
+                        <span class="disciplina-previa-label-termino"> às </span>
+                        <span class="disciplina-previa-horario-termino">{{ d.fim }}</span>
+                        <div class="detalhes-nao-exibir-quadro-previa">
+                          <span class="disciplina-previa-label-desc">Descrição: </span>
+                          <span class="disciplina-previa-desc">{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}</span>
+                          <span class="disciplina-previa-label-creditos">Créditos: </span>
+                          <span class="disciplina-previa-creditos">{{ d.disciplina.quantidadecreditos }}</span>
+                          <span class="disciplina-previa-id">{{ d.id }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 disciplina-previa-add" onclick="addDisciplina(event)">
+                  </div>
+                  <!-- <div class="disciplina-previa-rem-tb" onclick="removeDisciplina(event)">
+                    <span class="disciplina-previa-rem-txt-tb">Remover</span>
+                  </div> -->
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!-- QUINTA-FEIRA -->
+          <div class="card">
+            <div class="card-header" id="headingQuintaFeira">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#quicard" aria-expanded="true" aria-controls="quicard">
+                <span class="card-header-text"> Quinta-Feira </span>
+              </button>
+            </div>
+            <div id="quicard" class="collapse" aria-labelledby="headingQuintaFeira" data-parent="#accordion">
+              <div class="card-body" id="qui">
+                {% for d in podeLecionar %}
+                {% if d.diasemana == 4 %}
+                <div class="row disciplina-previa" id="{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}">
+                  <div class="col-10 disciplina-previa-detalhes">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">Disciplina: </span>
+                      <span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ d.disciplina.nome }}{% endfilter %}</span><br />
+                      <span class="disciplina-previa-label-codigo">Código: </span>
+                      <span class="disciplina-previa-codigo">{{ d.disciplina.codigo }}</span><br />
+                      <div class="detalhes-nao-exibir-calendario-plano">
+                        <span class="disciplina-previa-label-professor">Prof: </span>
+                        <span class="disciplina-previa-professor">{% filter force_escape|upper %}{{ d.professor.nome }}{% endfilter %}</span><br />
+                        <span class="disciplina-previa-label-inicio">Horário: </span>
+                        <span class="disciplina-previa-horario-inicio">{{ d.inicio }}</span>
+                        <span class="disciplina-previa-label-termino"> às </span>
+                        <span class="disciplina-previa-horario-termino">{{ d.fim }}</span>
+                        <div class="detalhes-nao-exibir-quadro-previa">
+                          <span class="disciplina-previa-label-desc">Descrição: </span>
+                          <span class="disciplina-previa-desc">{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}</span>
+                          <span class="disciplina-previa-label-creditos">Créditos: </span>
+                          <span class="disciplina-previa-creditos">{{ d.disciplina.quantidadecreditos }}</span>
+                          <span class="disciplina-previa-id">{{ d.id }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 disciplina-previa-add" onclick="addDisciplina(event)">
+                  </div>
+                  <!-- <div class="disciplina-previa-rem-tb" onclick="removeDisciplina(event)">
+                    <span class="disciplina-previa-rem-txt-tb">Remover</span>
+                  </div> -->
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!-- SEXTA-FEIRA -->
+          <div class="card">
+            <div class="card-header" id="headingSextaFeira">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#sexcard" aria-expanded="true" aria-controls="sexcard">
+                <span class="card-header-text"> Sexta-Feira </span>
+              </button>
+            </div>
+            <div id="sexcard" class="collapse" aria-labelledby="headingSextaFeira" data-parent="#accordion">
+              <div class="card-body" id="sex">
+                {% for d in podeLecionar %}
+                {% if d.diasemana == 5 %}
+                <div class="row disciplina-previa" id="{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}">
+                  <div class="col-10 disciplina-previa-detalhes">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">Disciplina: </span>
+                      <span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ d.disciplina.nome }}{% endfilter %}</span><br />
+                      <span class="disciplina-previa-label-codigo">Código: </span>
+                      <span class="disciplina-previa-codigo">{{ d.disciplina.codigo }}</span><br />
+                      <div class="detalhes-nao-exibir-calendario-plano">
+                        <span class="disciplina-previa-label-professor">Prof: </span>
+                        <span class="disciplina-previa-professor">{% filter force_escape|upper %}{{ d.professor.nome }}{% endfilter %}</span><br />
+                        <span class="disciplina-previa-label-inicio">Horário: </span>
+                        <span class="disciplina-previa-horario-inicio">{{ d.inicio }}</span>
+                        <span class="disciplina-previa-label-termino"> às </span>
+                        <span class="disciplina-previa-horario-termino">{{ d.fim }}</span>
+                        <div class="detalhes-nao-exibir-quadro-previa">
+                          <span class="disciplina-previa-label-desc">Descrição: </span>
+                          <span class="disciplina-previa-desc">{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}</span>
+                          <span class="disciplina-previa-label-creditos">Créditos: </span>
+                          <span class="disciplina-previa-creditos">{{ d.disciplina.quantidadecreditos }}</span>
+                          <span class="disciplina-previa-id">{{ d.id }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 disciplina-previa-add" onclick="addDisciplina(event)">
+                  </div>
+                  <!-- <div class="disciplina-previa-rem-tb" onclick="removeDisciplina(event)">
+                    <span class="disciplina-previa-rem-txt-tb">Remover</span>
+                  </div> -->
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!-- OUTROS -->
+          <div class="card">
+            <div class="card-header" id="headingOutros">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#outros" aria-expanded="true" aria-controls="outros">
+                <span class="card-header-text"> Outros </span>
+              </button>
+            </div>
+            <div id="outros" class="collapse" aria-labelledby="headingOutros" data-parent="#accordion">
+              <div class="card-body" id="out">
+                {% for d in podeLecionar %}
+                {% if d.diasemana == 7 or d.diasemana == 8 %}
+                <div class="row disciplina-previa" id="{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}">
+                  <div class="col-10 disciplina-previa-detalhes">
+                    <div class="detalhes-completos">
+                      <span class="disciplina-previa-label-nome">Disciplina: </span>
+                      <span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ d.disciplina.nome }}{% endfilter %}</span><br />
+                      <span class="disciplina-previa-label-codigo">Código: </span>
+                      <span class="disciplina-previa-codigo">{{ d.disciplina.codigo }}</span><br />
+                      <div class="detalhes-nao-exibir-calendario-plano">
+                        <span class="disciplina-previa-label-professor">Prof: </span>
+                        <span class="disciplina-previa-professor">{% filter force_escape|upper %}{{ d.professor.nome }}{% endfilter %}</span><br />
+                        <span class="disciplina-previa-label-inicio">Horário: </span>
+                        <span class="disciplina-previa-horario-inicio">{{ d.get_diasemana_display }}</span>
+                        <span class="disciplina-previa-label-termino"></span>
+                        <span class="disciplina-previa-horario-termino"></span>
+                        <div class="detalhes-nao-exibir-quadro-previa">
+                          <span class="disciplina-previa-label-desc">Descrição: </span>
+                          <span class="disciplina-previa-desc">{{ d.disciplina.codigo }}{{ d.inicio|time:'Hi' }}</span>
+                          <span class="disciplina-previa-label-creditos">Créditos: </span>
+                          <span class="disciplina-previa-creditos">{{ d.disciplina.quantidadecreditos }}</span>
+                          <span class="disciplina-previa-id">{{ d.id }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 disciplina-previa-add" onclick="addDisciplina(event)">
+                  </div>
+                  <!-- <div class="disciplina-previa-rem-tb" onclick="removeDisciplina(event)">
+                    <span class="disciplina-previa-rem-txt-tb">Remover</span>
+                  </div> -->
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="row">
+        <div class="col-11 cabecalho-disciplinas">
+          <span>Plano de Estudos para {{ proxperiodo }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-11p quadro-disciplinas quadro">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th><span class="short">SEG</span></th>
+                <th><span class="short">TER</span></th>
+                <th><span class="short">QUA</span></th>
+                <th><span class="short">QUI</span></th>
+                <th><span class="short">SEX</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="hour"><span>07:00</span></td>
+                <td id="seg0700"></td>
+                <td id="ter0700"></td>
+                <td id="qua0700"></td>
+                <td id="qui0700"></td>
+                <td id="sex0700"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>07:55</span></td>
+                <td id="seg0755"></td>
+                <td id="ter0755"></td>
+                <td id="qua0755"></td>
+                <td id="qui0755"></td>
+                <td id="sex0755"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>08:50</span></td>
+                <td id="seg0850"></td>
+                <td id="ter0850"></td>
+                <td id="qua0850"></td>
+                <td id="qui0850"></td>
+                <td id="sex0850"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>09:55</span></td>
+                <td id="seg0955"></td>
+                <td id="ter0955"></td>
+                <td id="qua0955"></td>
+                <td id="qui0955"></td>
+                <td id="sex0955"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>10:50</span></td>
+                <td id="seg1050"></td>
+                <td id="ter1050"></td>
+                <td id="qua1050"></td>
+                <td id="qui1050"></td>
+                <td id="sex1050"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>11:45</span></td>
+                <td id="seg1145"></td>
+                <td id="ter1145"></td>
+                <td id="qua1145"></td>
+                <td id="qui1145"></td>
+                <td id="sex1145"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>12:40</span></td>
+                <td id="seg1240"></td>
+                <td id="ter1240"></td>
+                <td id="qua1240"></td>
+                <td id="qui1240"></td>
+                <td id="sex1240"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>13:35</span></td>
+                <td id="seg1335"></td>
+                <td id="ter1335"></td>
+                <td id="qua1335"></td>
+                <td id="qui1335"></td>
+                <td id="sex1335"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>14:30</span></td>
+                <td id="seg1430"></td>
+                <td id="ter1430"></td>
+                <td id="qua1430"></td>
+                <td id="qui1430"></td>
+                <td id="sex1430"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>15:35</span></td>
+                <td id="seg1535"></td>
+                <td id="ter1535"></td>
+                <td id="qua1535"></td>
+                <td id="qui1535"></td>
+                <td id="sex1535"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>16:30</span></td>
+                <td id="seg1630"></td>
+                <td id="ter1630"></td>
+                <td id="qua1630"></td>
+                <td id="qui1630"></td>
+                <td id="sex1630"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>17:25</span></td>
+                <td id="seg1725"></td>
+                <td id="ter1725"></td>
+                <td id="qua1725"></td>
+                <td id="qui1725"></td>
+                <td id="sex1725"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>18:20</span></td>
+                <td id="seg1820"></td>
+                <td id="ter1820"></td>
+                <td id="qua1820"></td>
+                <td id="qui1820"></td>
+                <td id="sex1820"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>19:10</span></td>
+                <td id="seg1910"></td>
+                <td id="ter1910"></td>
+                <td id="qua1910"></td>
+                <td id="qui1910"></td>
+                <td id="sex1910"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>20:00</span></td>
+                <td id="seg2000"></td>
+                <td id="ter2000"></td>
+                <td id="qua2000"></td>
+                <td id="qui2000"></td>
+                <td id="sex2000"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>21:00</span></td>
+                <td id="seg2100"></td>
+                <td id="ter2100"></td>
+                <td id="qua2100"></td>
+                <td id="qui2100"></td>
+                <td id="sex2100"></td>
+              </tr>
+              <tr>
+                <td class="hour"><span>21:50</span></td>
+                <td id="seg2150"></td>
+                <td id="ter2150"></td>
+                <td id="qua2150"></td>
+                <td id="qui2150"></td>
+                <td id="sex2150"></td>
+              </tr>
+              <tr>
+                <td id="disciplinas-sem-horario-cell" colspan="6">
+                  <div>
+                    <span id="texto-disciplinas-sem-horario" onclick="exibirDisciplinasSemHorario()"> Disciplinas sem horário:</span>
+                    <!--<span id="numero-disciplinas-sem-horario"> (06)</span> -->
+                  </div>
+                  <div id="disciplinas-sem-horario"></div>
+                  <form class="" action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="discip" name="discip">
+                    <div id="salvar-previa">
+                      <button type="submit">Salvar Plano de Estudos Atual</button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <a href="{% url 'cadd:lista_planos' %}" class="btn botao-padrao">Voltar</a>
+        {% if continua %}
+        <a href="{% url 'cadd:novo_plano_futuro' %}" class="btn botao-padrao botao-verde">Passar a etapa 2</a>
+        {% else %}
+        <a href="#" class="btn botao-padrao botao-desabilitado">Passar a etapa 2</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

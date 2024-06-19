@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Membro &gt;&gt;</span><br />
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <form class="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.professor.id_for_label }}">Professor</label>
+      {{ form.professor }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.portaria.id_for_label }}">Portaria</label>
+      {{ form.portaria }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.presidente.id_for_label }}">Presidente</label>
+      {{ form.presidente }}
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_membros' id_comissao %}" class="btn botao-padrao">Voltar</a>
+    <button type="submit" class="btn botao-padrao botao-verde">Salvar</button>
+  </div>
+  </form>
+{% endblock body %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Comissão &gt;&gt;</span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <form class="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.curso.id_for_label }}">Curso</label>
+      {{ form.curso }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.descricao.id_for_label }}">Descrição</label>
+      {{ form.descricao }}
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_comissoes' %}" class="btn botao-padrao">Voltar</a>
+    <button type="submit" class="btn botao-padrao botao-verde">Salvar</button>
+  </div>
+  </form>
+{% endblock body %}

@@ -1,0 +1,78 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sistema de Apoio às CADDs</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sacadd.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- Header section -->
+    <section class="header">
+      <div class="header-content">
+        <div class="row justify-content-between">
+          <div class="col-12">
+            <h1 class="titulo-sistema-login">SISTEMA de APOIO às CADDs</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="content">
+      <div class="main-content main-content-pagina-inicial">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-login-div">
+              <form class="" method="post">
+                {% csrf_token %}
+                {% if messages %}
+                  <div class="alert alert-danger" role="alert">
+                    {% for message in messages %}
+                      {{ message }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                <div class="form-group ls-login-user">
+                  <label for="username">Usuário</label>
+                  <input class="form-control ls-login-bg-user input-lg" id="username" name="username" type="text" placeholder="Informe o usuário" required autofocus>
+                </div>
+                <div class="form-group ls-login-password">
+                  <label for="password">Senha</label>
+                  <input class="form-control ls-login-bg-password input-lg" id="password" name="password" type="password" placeholder="Informe a senha" required>
+                </div>
+                <input type="submit" value="Entrar" class="btn botao-padrao botao-azul"><br />
+                {# Não foi concluída a parte de resetar a senha #}
+<!--                <a href="{% url 'password_reset' %}">Esqueceu a senha?</a><br /> -->
+                <a href="{% url 'accounts:usuario_registrar' %}">Não tem registro?</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p class="m-0 text-center text-white">Sistema de Apoio às CADDs &copy; CEFET-RJ 2018</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

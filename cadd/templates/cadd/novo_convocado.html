@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Convocado &gt;&gt;</span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <form class="" method="post">
+    {% csrf_token %}
+<!--    <div class="form-group">
+      <label for="{{ form.presente.id_for_label }}">Presente</label>
+      {{ form.presente }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.envioemail.id_for_label }}">Envio de e-mail</label>
+      {{ form.envioemail }}
+    </div> -->
+    <div class="form-group">
+      <label for="{{ form.aluno.id_for_label }}">Aluno</label>
+      {{ form.aluno }}
+    </div>
+<!--    <div class="form-group">
+      <label for="{{ form.anotacao.id_for_label }}">Anotacao</label>
+      {{ form.anotacao }}
+    </div> -->
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_convocados' id_reuniao %}" class="btn botao-padrao">Voltar</a>
+    <button type="submit" class="btn botao-padrao botao-verde">Salvar</button>
+  </div>
+  </form>
+{% endblock body %}

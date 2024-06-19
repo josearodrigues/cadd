@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Reunião &gt;&gt;</span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <form class="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.data.id_for_label }}">Data</label>
+      {{ form.data }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.inicio.id_for_label }}">Início</label>
+      {{ form.inicio }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.local.id_for_label }}">Local</label>
+      {{ form.local }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.tipo.id_for_label }}">Tipo</label>
+      {{ form.tipo }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.comissao.id_for_label }}">Comissão</label>
+      {{ form.comissao }}
+    </div>
+<!--    <div class="form-group">
+      <label for="{{ form.anotacao.id_for_label }}">Anotação</label>
+      {{ form.anotacao }}
+    </div> -->
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_reunioes' %}" class="btn botao-padrao">Voltar</a>
+    <button type="submit" class="btn botao-padrao botao-verde">Salvar</button>
+  </div>
+  </form>
+{% endblock body %}

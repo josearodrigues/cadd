@@ -1,0 +1,149 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sistema de Apoio às CADDs</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sacadd.css' %}" rel="stylesheet">
+
+    <!-- Custom scripts for this template -->
+    <script type="text/javascript">
+      function mostrarIframe(){
+        document.getElementById("iframe-documento").style.display = "block";
+      }
+      function preencherModal(link){
+        document.getElementById('link-modal').href = link;
+      }
+      function exibirpreencherIframe(link){
+        document.getElementById("interno").src = link;
+        document.getElementById("iframe-documento").style.display = "block";
+      }
+      function ocultarCard(id){
+        document.getElementById(id).style.display = "none";
+        document.getElementById("iframe-documento").style.display = "none";
+      }
+    </script>
+
+    {% if ativoComissoes %}
+    <script src="{% static 'js/sacadd1.js' %}"></script>
+    {% elif ativoPlanos2 %}
+    <script src="{% static 'js/sacadd.js' %}"></script>
+    {% elif ativoPlanos3 %}
+    <script src="{% static 'js/sacadd2.js' %}"></script>
+    {% endif %}
+
+  </head>
+  <body>
+    <!-- Header section -->
+    <section class="header">
+      <div class="header-content">
+        <div class="row justify-content-between">
+          <div class="col-6">
+            <h1 class="titulo-sistema">SISTEMA de APOIO às CADDs</h1>
+          </div>
+          <div class="col-5">
+            <div class="row">
+              <div class="col-12">
+                <span class="usuario-texto">{% if user.is_authenticated %}{{ tipo }} {% endif %}</span>
+                <span class="usuario-autenticado" onclick="mostrarPerfilModal()">{% if user.is_authenticated %}{{ user.username }}{% endif %}</span><br />
+                <a href="{% url 'accounts:usuario_perfil' %}"><span class="logout">Meu Perfil</span></a>
+                <a href="{% url 'accounts:usuario_logout' %}"><img src="{% static 'img/logout.svg' %}" width="30px" class="logout-icon"><span class="logout">SAIR</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="navbar-content">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item{% if ativoInicio %} active{% endif %}">
+              <a class="nav-link" href="{% url 'home' %}">INÍCIO</a>
+            </li>
+            {% if user.is_authenticated %}
+
+            {% if 'Admin' in tipo %}
+            <li class="nav-item{% if ativoConfiguracoes %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:editar_parametros' %}">CONFIGURAÇÕES</a>
+            </li>
+            <li class="nav-item{% if ativoComissoes %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:lista_comissoes' %}">COMISSÕES</a>
+            </li>
+            {% endif %}
+
+            {% if 'Prof' in tipo and membro %}
+            <li class="nav-item{% if ativoReunioes %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:lista_reunioes' %}">REUNIÕES</a>
+            </li>
+            <li class="nav-item{% if ativoHorarios %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:lista_horarios' %}">HORÁRIOS</a>
+            </li>
+            <li class="nav-item{% if ativoPlanos %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:lista_planos_avaliar' %}">PLANO DE ESTUDOS</a>
+            </li>
+            <li class="nav-item{% if ativoDocumentos %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:lista_documentos' %}">DOCUMENTOS</a>
+            </li>
+            <ul class="navbar-nav navbar-right">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle{% if ativoRelatorios %} active{% endif %}" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RELATÓRIOS</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown07">
+                  <a class="dropdown-item" href="{% url 'cadd:relatorio_situacao' %}">SITUAÇÃO DOS ALUNOS</a>
+                  <a class="dropdown-item" href="{% url 'cadd:relatorio_conflitos' %}">CONFLITOS DE HORÁRIOS</a>
+                  <a class="dropdown-item" href="{% url 'cadd:relatorio_ata' %}">ATAS DAS REUNIÕES</a>
+                  <a class="dropdown-item" href="{% url 'cadd:relatorio_atendimentos' %}">ACOMPANHAMENTOS</a>
+                  <a class="dropdown-item" href="{% url 'cadd:relatorio_ausencia' %}">AUSÊNCIA ÀS REUNIÕES</a>
+                  <a class="dropdown-item" href="{% url 'cadd:relatorio_excepcionais' %}">CASOS EXCEPCIONAIS</a>
+                </div>
+              </li>
+            </ul>
+            {% endif %}
+
+            {% if 'Aluno' in tipo %}
+            <li class="nav-item{% if ativoPlanos %} active{% endif %}">
+              <a class="nav-link" href="{% url 'cadd:lista_planos' %}">PLANO DE ESTUDOS</a>
+            </li>
+            {% endif %}
+
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content section -->
+    <section class="content">
+    {% block body %}
+
+    {% endblock body %}
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p class="m-0 text-center text-white">Sistema de Apoio às CADDs &copy; CEFET-RJ 2018</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

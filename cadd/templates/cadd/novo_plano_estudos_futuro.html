@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="main-content">
+    <div class="row alinhamento-central">
+      <span class="titulo-pagina">&lt;&lt; Plano de Estudos para os semestres seguintes &gt;&gt;</span>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-11 cabecalho-disciplinas">
+            <span>Disciplinas do Curso</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-11p quadro-disciplinas quadro">
+            <h6 class="tipo_disciplina">Disciplinas Obrigatórias</h6>
+            <ul id="disciplinas-obrigatorias" ondrop="drop(event)" ondragover="allowDrop(event)" class="">
+              {% for d in aLecionar %}
+              {% if not d.optativa %}
+              <li id="{{ d.id }}" name="{{ d.codigo }}" class="item_disc_disciplinas item_disc_disciplinas_faixa_vermelha" draggable="true" ondragstart="drag(event)">
+                {% filter force_escape|upper %}{{ d.nome }}{% endfilter %} ({{ d.codigo }})
+                <div class="detalhes-nao-exibir-quadro-previa">
+                  <span class="disciplina-previa-label-creditos">Créditos: </span>
+                  <span class="disciplina-previa-creditos">{{ d.quantidadecreditos }}</span>
+                </div>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+            <h6 class="tipo_disciplina">Disciplinas Optativas</h6>
+            <ul id="disciplinas-optativas" ondrop="drop(event)" ondragover="allowDrop(event)" class="">
+              {% for d in aLecionar %}
+              {% if d.optativa%}
+              <li id="{{ d.id }}" name="{{ d.codigo }}" class="item_disc_disciplinas item_disc_disciplinas_faixa_vermelha" draggable="true" ondragstart="drag(event)">
+                {% filter force_escape|upper %}{{ d.nome }}{% endfilter %} ({{ d.codigo }})
+                <div class="detalhes-nao-exibir-quadro-previa">
+                  <span class="disciplina-previa-label-creditos">Créditos: </span>
+                  <span class="disciplina-previa-creditos">{{ d.quantidadecreditos }}</span>
+                </div>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-11 cabecalho-quadros">
+            <span>Períodos de Integralização</span>
+          </div>
+        </div>
+        <div class="row">
+          <div id="accordion" class="col-11p quadro-periodos quadro">
+            {% for p in listaperiodos %}
+            <div class="card">
+              <div class="card-header" id="heading{{ p.0 }}{{ p.1 }}">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ p.0 }}{{ p.1 }}" aria-expanded="true" aria-controls="collapse{{ p.0 }}{{ p.1 }}">
+                  <span class="card-header-text"> {{ p.2 }} </span>
+                </button>
+              </div>
+              <div id="collapse{{ p.0 }}{{ p.1 }}" class="collapse{% if forloop.counter == 1 %} show{% endif %}" aria-labelledby="heading{{ p.0 }}{{ p.1 }}" data-parent="#accordion">
+                <div class="card-body-integralizacao">
+                  <ul id="collapse{{ p.0 }}{{ p.1 }}List" class="collapseList lista-de-disciplinas">
+                    <li class="receptor-disciplina" ondrop="drop(event)" ondragover="allowDrop(event)" >
+                      <span id="text-return" ondrop="dropparent(event)">SOLTAR DISCIPLINA AQUI</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="form-group">
+          <form class="" action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="discip" name="discip">
+            <div id="salvar-futuro">
+              <br>
+              <a href="{% url 'cadd:novo_plano_previa' %}" class="btn botao-padrao">Voltar a Etapa 1</a>
+              <button type="submit" onclick="preencherDisciplinas()" class="botao-padrao botao-verde">Salvar Plano de Estudos Futuro</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

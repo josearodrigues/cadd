@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Página Inicial &gt;&gt;</span>
+  </div>
+  {# Caso haja mensagens, as exibe #}
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {# Loop para a exibição de todas as mensagens #}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# Caso seja um administrador... #}
+  {% if tipo == 'Admin' %}
+  <div class="row alinhamento-central">
+    <div class="background-div">
+      <img src="{% static 'img/bg.jpg' %}" class="background-image">
+    </div>
+  </div>
+  {% endif %}
+
+  {# Caso seja um professor... #}
+  {% if 'Prof' in tipo %}
+  {# E um membro da CADD #}
+  {# Caso haja comissões #}
+  {% if comissoes %}
+  <div class="row alinhamento-central">
+    <div class="lista-comissoes-pagina-inicial col-5"">
+      <span class="comissoes-titulo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Membro da(s) comissão(ões):</span>
+      <hr>
+      {# Loop para a exibição de todas as comissões #}
+      {% for c in comissoes %}
+      <div class="col-12">
+        <span class="reunioes-linha">
+          {{ c.descricao }}<br />
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {# Caso seja um aluno... #}
+  {% if 'Aluno' in tipo %}
+  <div class="row">
+    <div class="lista-reunioes-pagina-inicial col-4">
+      <span class="reunioes-titulo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reunião(ões):</span>
+      {# Caso haja pelo menos uma reunião agendada #}
+      {% if reunioes %}
+      {# Loop para a exibição de todas as reuniões #}
+      {% for r in reunioes %}
+      {# Somente serão exibidas as que não foram encerradas #}
+      {% if not r.situacao == 'E' %}
+      <div class="row item-reuniao-{% if r.situacao == 'C' %}cancelada{% else %}agendada{% endif %}">
+        <div class="col-12">
+          <span class="reunioes-linha">
+            <span class="reunioes-linha-destaque">Reunião {{ r.get_situacao_display }}</span><br />
+            Local: <span class="reunioes-linha-destaque">{{ r.local }}</span><br />
+            Data: <span class="reunioes-linha-destaque">{{ r.data }}</span><br />
+            Horário: <span class="reunioes-linha-destaque">{{ r.inicio }}h</span><br />
+          </span>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+    {# Apresentação dos dados da vida acadêmica do aluno logado #}
+    <div class="faixa-criticidade-pagina-inicial col-6" style="background-color: {% if criticidade == 'AZUL' %}blue{% elif criticidade == 'LARANJA' %}orange{% elif criticidade == 'VERMELHA' %}red{% else %}gray{% endif %}">
+      <div>
+        <span class="criticidade-titulo">Faixa de Criticidade: {{ criticidade }}</span><hr>
+        <span class="criticidade-status">Curso: </span>
+        <span>{{ nomecurso }}</span><br />
+        <span class="criticidade-status">Versão: </span>
+        <span>{{ versaocurso }}</span><br />
+        <span class="criticidade-status">Matrícula: </span>
+        <span>{{ matricula }}</span><br />
+        <span class="criticidade-status">Período atual: </span>
+        <span>{{ ano }}.{{ periodo }}</span><br />
+        <span class="criticidade-status">Períodos cursados: </span>
+        <span>{{ periodos }}</span><br />
+        <span class="criticidade-status">Trancamentos totais: </span>
+        <span>{{ trancamentos }}</span><br />
+        <span class="criticidade-status">Optativas: </span>
+        <span>{{ cargaeletivas }}/{{ totaleletivas }} horas-aula</span><br />
+        <span class="criticidade-status">Atividades Complementares: </span>
+        <span>{{ cargaatividades }}0/{{ totalatividades }} horas</span><br />
+        {# Caso existam disciplinas reprovadas #}
+        {% if reprovadas %}
+        <span class="criticidade-status">Reprovações:</span><br />
+        {# Loop para a exibição de todas as disciplinas reprovadas #}
+        {% for r in reprovadas %}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ r }}</span><br />
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if user.is_authenticated == "False" %}
+    <p><a href="{% url 'accounts:usuario_registrar' %}">Registre-se</a></p>
+    <p><a href="{% url 'accounts:usuario_login' %}">Login</a></p>
+  {% endif %}
+{% endblock body %}

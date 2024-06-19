@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Lista de Convocados reunião na {{ reuniao }} &gt;&gt;</span>
+  </div>
+  {# Caso haja mensagens, as exibe #}
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {# Loop para a exibição de todas as mensagens #}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {# Caso haja pelo menos um convocado cadastrado #}
+  {% if convocados %}
+  {% if copiabotoes %}
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_reunioes' %}" class="btn botao-padrao">Voltar</a>
+    <a href="{% url 'cadd:novo_convocado' id_reuniao %}" class="btn botao-padrao botao-azul" role="button">Adicionar convocado</a>
+  </div>
+  <div class="row alinhamento-central">
+    <div class="pagination">
+        <span class="step-links">
+          {# Caso haja mais de uma página de resultados, habilita os botões conforme o necessário #}
+            {% if convocados.has_previous %}
+                <a href="?page=1" class="btn btn-info">Primeiro</a>
+                <a href="?page={{ convocados.previous_page_number }}" class="btn btn-info botao-padrao">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ convocados.number }} de {{ convocados.paginator.num_pages }}
+            </span>
+
+            {# Caso haja mais de uma página de resultados, habilita os botões (idem acima) #}
+            {% if convocados.has_next %}
+                <a href="?page={{ convocados.next_page_number }}" class="btn btn-info botao-padrao">Próximo</a>
+                <a href="?page={{ convocados.paginator.num_pages }}" class="btn btn-info botao-padrao">Último</a>
+            {% endif %}
+        </span>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <div class="form-group">
+      <table class="table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th colspan="2">Aluno</th>
+            <th>Presente</th>
+            <th>Envio de e-mail</th>
+            <th colspan="5" style="textalign:center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {# Loop para a exibição de todos os convocados #}
+          {% for c in convocados %}
+          <tr>
+            <td colspan="2">{{ c.aluno }}</td>
+            {# Converte a presença em Sim e Não #}
+            <td>{{ c.presente|yesno }}</td>
+            <td>{{ c.envioemail|yesno }}</td>
+            <td colspan="5">
+              <a href="{% url 'cadd:editar_convocado' c.id id_reuniao %}" class="btn btn-info botao-padrao">Editar</a>
+              <button type="button" class="btn botao-padrao botao-vermelho" data-toggle="modal" data-target="#excluirModal" onclick="preencherModal('{% url 'cadd:excluir_convocado' c.id id_reuniao %}')">Desconvocar</button>
+              <a href="#" class="btn botao-padrao botao-desabilitado">Dar Presença</a>
+              <a href="#" class="btn botao-padrao botao-desabilitado">Preencher Atendimento</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <div class="pagination">
+        <span class="step-links">
+          {# Caso haja mais de uma página de resultados, habilita os botões conforme o necessário #}
+            {% if convocados.has_previous %}
+                <a href="?page=1" class="btn btn-info">Primeiro</a>
+                <a href="?page={{ convocados.previous_page_number }}" class="btn btn-info botao-padrao">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ convocados.number }} de {{ convocados.paginator.num_pages }}
+            </span>
+
+            {# Caso haja mais de uma página de resultados, habilita os botões (idem acima) #}
+            {% if convocados.has_next %}
+                <a href="?page={{ convocados.next_page_number }}" class="btn btn-info botao-padrao">Próximo</a>
+                <a href="?page={{ convocados.paginator.num_pages }}" class="btn btn-info botao-padrao">Último</a>
+            {% endif %}
+        </span>
+    </div>
+  </div>
+  {# Caso não haja nenhum convocado cadastrado, exibe mensagem #}
+  {% else %}
+  <div class="row alinhamento-central">
+    <div class="form-group">
+      <div class="alert alert-danger" role="alert">
+        <p>Não há nenhum convocado cadastrado!</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row alinhamento-central">
+    <a href="{% url 'cadd:lista_reunioes' %}" class="btn botao-padrao">Voltar</a>
+    <a href="{% url 'cadd:novo_convocado' id_reuniao %}" class="btn botao-padrao botao-azul" role="button">Adicionar convocado</a>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluir" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="excluir">Confirmar Exclusão</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Você tem certeza que deseja desconvocar este aluno?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn botao-padrao botao-azul" data-dismiss="modal">Cancelar</button>
+          <a id="link-modal" class="btn botao-padrao botao-vermelho">Sim</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Final Modal -->
+{% endblock body %}

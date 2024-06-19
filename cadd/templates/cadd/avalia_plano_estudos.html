@@ -1,0 +1,134 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sistema de Apoio às CADDs</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sacadd.css' %}" rel="stylesheet">
+
+  </head>
+  <body style="border-left: 1px solid #ccc;">
+    <!-- Content section -->
+    <section class="content">
+      <div class="main-content">
+        <div class="row alinhamento-central">
+          <span class="titulo-pagina">Aluno {{ aluno }}</span>
+        </div>
+        <div class="row">
+          <div class="faixa-criticidade-iframe-avaliacao col-6" style="background-color: {% if criticidade == 'AZUL' %}blue{% elif criticidade == 'LARANJA' %}orange{% elif criticidade == 'VERMELHA' %}red{% else %}gray{% endif %}">
+            <div>
+              <span class="criticidade-titulo">FAIXA {{ criticidade }}</span><hr>
+              <span class="criticidade-status">Período atual: </span>
+              <span>{{ periodoatual }}</span><br />
+              <span class="criticidade-status">Períodos cursados: </span>
+              <span>{{ periodos }}</span><br />
+              <span class="criticidade-status">Trancamentos totais: </span>
+              <span>{{ trancamentos }}</span><br />
+              <span class="criticidade-status">Optativas: </span>
+              <span>{{ cargaeletivas }}/{{ totaleletivas }} horas-aula</span><br />
+              <span class="criticidade-status">Atividades Complementares: </span>
+              <span>{{ cargaatividades }}0/{{ totalatividades }} horas</span><br />
+              {% if reprovadas %}
+              <span class="criticidade-status">Reprovações:</span><br />
+              {% for r in reprovadas %}
+              &nbsp;&nbsp;<span class="disciplina-previa-nome">{% filter force_escape|upper %}{{ r }}{% endfilter %}</span><br />
+              {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-5">
+            {% if planoAtual %}
+            <div class="row">
+              <div class="col-11 cabecalho-quadros">
+                <span>Plano de Estudos Cadastrado</span>
+              </div>
+            </div>
+            <div class="row">
+              <div id="accordion" class="col-11p quadro-periodos quadro">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="card-header-text"> {{ planoAtual.ano }}.{{ planoAtual.periodo }} </span>
+                      </button>
+                  </div>
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      <ul id="collapseOneList" class="collapseList">
+                        {% for i in itensAtual %}
+                        <li id="{{ i.itemhorario.disciplina.codigo }}" class="item_disc_disciplinas item_disc_disciplinas_faixa_vermelha">
+                          {% filter force_escape|upper %}({{ i.itemhorario.disciplina.codigo }}) {{ i.itemhorario.disciplina.nome }}{% endfilter %}
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                {% if planosFuturos %}
+                {% for a in planosFuturos %}
+                <div class="card">
+                  <div class="card-header" id="heading{{ a.ano }}{{ a.periodo }}">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse{{ a.ano }}{{ a.periodo }}" aria-expanded="false" aria-controls="collapse{{ a.ano }}{{ a.periodo }}">
+                        <span class="card-header-text"> {{ a.ano }}.{{ a.periodo }} </span>
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapse{{ a.ano }}{{ a.periodo }}" class="collapse" aria-labelledby="heading{{ a.ano }}{{ a.periodo }}" data-parent="#accordion">
+                    <div class="card-body">
+                      <ul id="collapse{{ a.ano }}{{ a.periodo }}List" class="collapseList">
+                        {% for j in itensFuturos %}
+                        {% if j.planofuturo == a %}
+                        <li id="{{ j.disciplina.codigo }}" class="item_disc_disciplinas item_disc_disciplinas_faixa_vermelha">
+                          {% filter force_escape|upper %}({{ j.disciplina.codigo }}) {{ j.disciplina.nome }}{% endfilter %}
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            {% else %}
+            <div class="row">
+              <div class="col-11 cabecalho-quadros">
+                <span>Não há nenhum Plano de Estudos Cadastrado</span>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 bloco-avaliacao" >
+            <span class="titulo-pagina titulo-avaliacao"> Avaliação da Comissão</span>
+            <hr>
+            <form class="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <textarea class="form-control" rows="5" id="avaliacao" name="avaliacao">{{ avaliacao }}</textarea>
+            </div>
+            <button type="submit" class="btn botao-padrao botao-verde" onclick="window.top.ocultarCard({{ id_aluno }});">Salvar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>

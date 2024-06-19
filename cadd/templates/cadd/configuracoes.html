@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+  <div class="row alinhamento-central">
+    <span class="titulo-pagina">&lt;&lt; Configurações do Sistema &gt;&gt;</span>
+  </div>
+  {% if messages %}
+  <div class="row alinhamento-central">
+    <div class="alert alert-danger" role="alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <form class="" method="post">
+  {% csrf_token %}
+  <div class="row alinhamento-central">
+    <div class="col-4">
+      <h1 class="h4 mb-2 font-weight-bold">Dimensão quantidade de reprovações por disciplina</h1>
+      <h1 class="h5 mb-2 font-weight-normal">Cursos duração de 8 períodos ou mais</h1>
+      <div class="form-group">
+        <label for="reprovacurso8periodoslaranja">Faixa de criticidade Laranja</label>
+        {{ form.reprovacurso8periodoslaranja }}
+      </div>
+      <div class="form-group">
+        <label for="reprovacurso8periodosvermelha">Faixa de criticidade Vermelha</label>
+        {{ form.reprovacurso8periodosvermelha }}
+      </div>
+      <h1 class="h5 mb-2 font-weight-normal">Demais cursos</h1>
+      <div class="form-group">
+        <label for="reprovademaiscursoslaranja">Faixa de criticidade Laranja</label>
+        {{ form.reprovademaiscursoslaranja }}
+      </div>
+      <div class="form-group">
+        <label for="reprovademaiscursosvermelha">Faixa de criticidade Vermelha</label>
+        {{ form.reprovademaiscursosvermelha }}
+      </div>
+    </div>
+    <div class="col-4">
+      <h1 class="h4 mb-2 font-weight-bold">Dimensão quantidade de períodos para integralização</h1>
+      <div class="form-group">
+        <label for="qtdperiodosiniciallaranja">Fórmula Inicial Faixa de criticidade Laranja</label>
+        {{ form.qtdperiodosiniciallaranja }}
+      </div>
+      <div class="form-group">
+        <label for="qtdperiodosfinallaranja">Fórmula Final Faixa de criticidade Laranja</label>
+        {{ form.qtdperiodosfinallaranja }}
+      </div>
+      <div class="form-group">
+        <label for="qtdperiodosvermelha">Fórmula Faixa de criticidade Vermelha</label>
+        {{ form.qtdperiodosvermelha }}
+      </div>
+    </div>
+    <div class="col-4">
+      <h1 class="h4 mb-2 font-weight-bold">Outros</h1>
+      <div class="form-group">
+        <label for="mincreditosporperiodopreta">Quantidade mínima de créditos a cursar por período (Faixa de criticidade Preta)</label>
+        {{ form.mincreditosporperiodopreta }}
+      </div>
+      <div class="form-group">
+        <label for="maxcreditosporperiodo">Quantidade máxima de créditos a cursar por período</label>
+        {{ form.maxcreditosporperiodo }}
+      </div>
+    </div>
+  </div>
+  <div class="row alinhamento-central">
+    <ul>
+      <li>Tanto para a dimensão <b>Quantidade de reprovações por disciplina</b> quanto para a dimensão <b>Quantidade de períodos para integralização</b>, considera-se para a Faixa de criticidade Preta, valores maiores que o da Faixa Vermelha.</li>
+      <li>Nos campos de preenchimento da dimensão <b>Quantidade de períodos para integralização</b>, na fórmula deve ser utilizado o parâmetro N, que é o valor para a quantidade de períodos de um curso. Ex: 4 * N - 3</li>
+    </ul>
+  </div>
+  <div class="row alinhamento-central">
+    <a href="{% url 'home' %}" class="btn botao-padrao">Voltar</a>
+    <input type="submit" value="Salvar" class="btn botao-padrao botao-azul">
+  </div>
+  </form>
+{% endblock body %}
